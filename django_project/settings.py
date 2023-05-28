@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -54,11 +59,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-GOOGLE_OAUTH_CLIENT_ID = (
-    "63409512043-3a67i0i5jkhoeu9adjlu5ph3jkaapbbd.apps.googleusercontent.com")
-GOOGLE_OAUTH_REDIRECT_URI = "http://localhost:8000/rest/v1/calendar/redirect/"
-GOOGLE_API_SCOPE = ["https://www.googleapis.com/auth/calendar.readonly"]
-GOOGLE_OAUTH_CLIENT_SECRET = "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"
+GOOGLE_OAUTH_CLIENT_ID = env("GOOGLE_OAUTH_CLIENT_ID")
+GOOGLE_OAUTH_REDIRECT_URI = env("GOOGLE_OAUTH_REDIRECT_URI")
+GOOGLE_API_SCOPE = [env("GOOGLE_API_SCOPE")]
+GOOGLE_OAUTH_CLIENT_SECRET = env("GOOGLE_OAUTH_CLIENT_SECRET")
 
 ROOT_URLCONF = 'django_project.urls'
 
